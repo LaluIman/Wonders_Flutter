@@ -109,17 +109,12 @@ class MainView extends StatelessWidget {
   }
 }
 
-class WonderCard extends StatefulWidget {
+class WonderCard extends StatelessWidget {
   final Wonder wonder;
   final bool isWideScreen;
 
   const WonderCard({super.key, required this.wonder, required this.isWideScreen});
 
-  @override
-  _WonderCardState createState() => _WonderCardState();
-}
-
-class _WonderCardState extends State<WonderCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -130,7 +125,7 @@ class _WonderCardState extends State<WonderCard> {
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
-            child: Image.asset(widget.wonder.imageUrl, width: double.infinity, height: widget.isWideScreen ? 300 : 200, fit: BoxFit.cover),
+            child: Image.asset(wonder.imageUrl, width: double.infinity, height: isWideScreen ? 300 : 200, fit: BoxFit.cover),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -138,7 +133,7 @@ class _WonderCardState extends State<WonderCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.wonder.name,
+                  wonder.name,
                   style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 4),
@@ -148,7 +143,7 @@ class _WonderCardState extends State<WonderCard> {
                     const SizedBox(width: 4),
                     const Text('Location: ', style: TextStyle(fontSize: 20)),
                     Text(
-                      widget.wonder.location,
+                      wonder.location,
                       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -159,7 +154,7 @@ class _WonderCardState extends State<WonderCard> {
                     const Icon(Icons.star, color: Colors.yellow),
                     const SizedBox(width: 4),
                     const Text('Rating: ', style: TextStyle(fontSize: 20)),
-                    Text(widget.wonder.rating.toString(), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    Text(wonder.rating.toString(), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   ],
                 ),
               ],
