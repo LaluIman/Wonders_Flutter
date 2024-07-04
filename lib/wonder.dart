@@ -3,13 +3,15 @@ class Wonder {
   final String location;
   final double rating;
   final String imageUrl;
-  final String description; // New field for description
+  final String description;
+  bool isSaved;
 
-  const Wonder({
+  Wonder({
     required this.name,
     required this.location,
     required this.rating,
     required this.imageUrl,
-    required this.description, // Updated constructor to include description
+    required this.description,
+    this.isSaved = false, // Default is not saved
   });
 }

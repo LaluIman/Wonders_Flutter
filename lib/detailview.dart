@@ -3,14 +3,18 @@ import 'wonder.dart';
 
 class DetailView extends StatelessWidget {
   final Wonder wonder;
+  final VoidCallback toggleSaved;
 
-  const DetailView({super.key, required this.wonder});
+  const DetailView({Key? key, required this.wonder, required this.toggleSaved}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(wonder.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          wonder.name,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -23,7 +27,12 @@ class DetailView extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(wonder.imageUrl, height: isWideScreen ? 400 : 200, width: double.infinity, fit: BoxFit.cover),
+                    child: Image.asset(
+                      wonder.imageUrl,
+                      height: isWideScreen ? 400 : 200,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -56,12 +65,33 @@ class DetailView extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'Description of the wonder:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    'Description of the wonder:',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     wonder.description,
                     style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton.icon(
+                    onPressed: toggleSaved,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+                        return wonder.isSaved ? Colors.red : Colors.green;
+                      }),
+                      foregroundColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+                        return Colors.white; // text color
+                      }),
+                    ),
+                    icon: Icon(
+                      wonder.isSaved ? Icons.bookmark_remove : Icons.bookmark,
+                      size: 24,
+                    ),
+                    label: Text(
+                      wonder.isSaved ? 'Remove from Saved' : 'Save',
+                      style: const TextStyle(fontSize: 18),
+                    ),
                   ),
                 ],
               ),
